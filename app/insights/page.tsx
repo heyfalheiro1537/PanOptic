@@ -1,3 +1,5 @@
+"use client"
+
 import { AlertsPanel } from "@/components/alerts-panel"
 import { RecommendationsPanel } from "@/components/recommendations-panel"
 import { BudgetCard } from "@/components/budget-card"
