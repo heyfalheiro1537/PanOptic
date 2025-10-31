@@ -1,3 +1,4 @@
+"use client"
 import { SpendSummaryHeader } from "@/components/insights/spend-summary-header"
 import { CriticalAlertsSection } from "@/components/insights/critical-alerts-section"
 import { BudgetStatusSimplified } from "@/components/insights/budget-status-simplified"
