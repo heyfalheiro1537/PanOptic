@@ -14,7 +14,7 @@ export function generateRecommendations(events: ExpenseEvent[]): Recommendation[
       title: "Switch to Enterprise AI Plan",
       description: "Your AI token usage suggests an enterprise plan would be more cost-effective",
       potentialSavings: Math.round(aiSpend * 0.25),
-      action: "Review Pricing",
+      action: "Compare Plans",
     })
   }
 
@@ -26,7 +26,7 @@ export function generateRecommendations(events: ExpenseEvent[]): Recommendation[
       title: "Rightsize EC2 Instances",
       description: "Analysis shows potential for instance optimization during off-peak hours",
       potentialSavings: Math.round(ec2Spend * 0.15),
-      action: "Analyze Usage",
+      action: "View Instances",
     })
   }
 
@@ -50,7 +50,7 @@ export function generateRecommendations(events: ExpenseEvent[]): Recommendation[
       title: "Database Tier Optimization",
       description: "Consider reserved capacity for predictable workloads",
       potentialSavings: Math.round(mongoSpend * 0.3),
-      action: "Explore Options",
+      action: "View Options",
     })
   }
 
