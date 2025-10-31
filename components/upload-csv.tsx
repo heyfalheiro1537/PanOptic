@@ -59,10 +59,6 @@ export function UploadCsv() {
 
   return (
     <Card>
-      <CardHeader>
-        <CardTitle>Upload CSV Data</CardTitle>
-        <CardDescription>Replace current data with CSV file</CardDescription>
-      </CardHeader>
       <CardContent className="space-y-4">
         <div className="border-2 border-dashed rounded-lg p-8 text-center space-y-4">
           <Upload className="h-12 w-12 mx-auto text-muted-foreground" />
