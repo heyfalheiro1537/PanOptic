@@ -3,15 +3,8 @@
 import { useData } from "@/lib/data-context"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { TrendingUp, TrendingDown, ChevronDown, ChevronUp } from "lucide-react"
-import { useState, useMemo } from "react"
+import { useState, useMemo, useRef, useEffect } from "react"
 import type { Category, ExpenseEvent } from "@/lib/types"
-
-const categoryIcons: Record<Category, string> = {
-  Infrastructure: "🏗️",
-  "AI Tokens / APIs": "🤖",
-  "Hosting & DevOps": "🚀",
-  "Third-Party Tools": "🔧",
-}
 
 const serviceLogos: Record<string, string> = {
   "AWS EC2": "https://img.logo.dev/aws.com?token=pk_dRI6rSooQUyHy9Hbe0Pciw&format=png",
@@ -107,13 +100,45 @@ function aggregateServiceData(events: ExpenseEvent[]) {
 
 export default function CategoriesPage() {
   const { events } = useData()
-  const [expandedCategory, setExpandedCategory] = useState<Category | null>(null)
+  const [expandedCategories, setExpandedCategories] = useState<Set<Category>>(new Set())
+  const cardRefs = useRef<Map<Category, HTMLDivElement>>(new Map())
 
   const categoryData = useMemo(() => aggregateCategoryData(events), [events])
   const serviceData = useMemo(() => aggregateServiceData(events), [events])
 
   const toggleCategory = (category: Category) => {
-    setExpandedCategory(expandedCategory === category ? null : category)
+    const isCurrentlyExpanded = expandedCategories.has(category)
+    
+    setExpandedCategories((prev) => {
+      const newSet = new Set(prev)
+      if (newSet.has(category)) {
+        newSet.delete(category)
+      } else {
+        newSet.add(category)
+      }
+      return newSet
+    })
+  
+    // Scroll into view when expanding (not when collapsing)
+    if (!isCurrentlyExpanded) {
+      setTimeout(() => {
+        const cardElement = cardRefs.current.get(category)
+        if (cardElement) {
+          const rect = cardElement.getBoundingClientRect()
+          const padding = 24 // pixels of padding
+          const isBottomVisible = rect.bottom <= window.innerHeight - padding
+    
+          if (!isBottomVisible) {
+            const targetScroll = window.scrollY + (rect.bottom - window.innerHeight) + padding
+    
+            window.scrollTo({
+              top: targetScroll,
+              behavior: "smooth",
+            })
+          }
+        }
+      }, 100)
+    }
   }
 
   return (
@@ -123,49 +148,58 @@ export default function CategoriesPage() {
         <p className="text-muted-foreground">View expenses organized by category and service</p>
       </div>
 
-      <div className="grid gap-4">
+      <div className="grid gap-4 max-w-5xl mx-auto">
         {categoryData.map((cat) => {
-          const isExpanded = expandedCategory === cat.category
+          const isExpanded = expandedCategories.has(cat.category)
           const servicesInCategory = serviceData.filter((s) => s.category === cat.category)
 
           const trend = cat.trend > 0 ? "up" : "down"
           const TrendIcon = trend === "up" ? TrendingUp : TrendingDown
 
           return (
-            <Card key={cat.category} className="overflow-hidden">
+            <Card 
+              key={cat.category} 
+              className="overflow-hidden"
+              ref={(el) => {
+                if (el) {
+                  cardRefs.current.set(cat.category, el)
+                } else {
+                  cardRefs.current.delete(cat.category)
+                }
+              }}
+            >
               <CardHeader
-                className="cursor-pointer hover:bg-muted/50 transition-colors"
+                className="cursor-pointer hover:bg-muted/50 transition-colors py-7"
                 onClick={() => toggleCategory(cat.category)}
               >
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
-                    <span className="text-3xl">{categoryIcons[cat.category]}</span>
                     <div>
-                      <CardTitle className="text-xl">{cat.category}</CardTitle>
-                      <p className="text-sm text-muted-foreground mt-1">
+                      <CardTitle className="text-2xl">{cat.category}</CardTitle>
+                      <p className="text-base text-muted-foreground mt-1">
                         {servicesInCategory.length} service{servicesInCategory.length !== 1 ? "s" : ""}
                       </p>
                     </div>
                   </div>
                   <div className="flex items-center gap-4">
                     <div className="text-right">
-                      <div className="text-2xl font-bold">${cat.total.toLocaleString()}</div>
+                      <div className="text-3xl font-bold">${cat.total.toLocaleString()}</div>
                       <div
-                        className={`flex items-center gap-1 text-sm ${trend === "up" ? "text-red-500" : "text-green-500"}`}
+                        className={`flex items-center gap-1 text-base ${trend === "up" ? "text-red-500" : "text-green-500"}`}
                       >
-                        <TrendIcon className="h-3 w-3" />
+                        <TrendIcon className="h-4 w-4" />
                         {Math.abs(cat.trend).toFixed(1)}%
                       </div>
                     </div>
-                    {isExpanded ? <ChevronUp className="h-5 w-5" /> : <ChevronDown className="h-5 w-5" />}
+                    {isExpanded ? <ChevronUp className="h-6 w-6" /> : <ChevronDown className="h-6 w-6" />}
                   </div>
                 </div>
               </CardHeader>
 
               {isExpanded && (
-                <CardContent className="pt-0">
-                  <div className="border-t pt-4">
-                    <div className="space-y-2">
+                <CardContent className="pt-0 pb-0">
+                  <div className="border-t">
+                    <div className="divide-y divide-border">
                       {servicesInCategory.map((service) => {
                         const serviceTrend = service.trend > 0 ? "up" : "down"
                         const ServiceTrendIcon = serviceTrend === "up" ? TrendingUp : TrendingDown
@@ -173,25 +207,25 @@ export default function CategoriesPage() {
                         return (
                           <div
                             key={service.service}
-                            className="flex items-center justify-between p-3 rounded-lg hover:bg-muted/50 transition-colors"
+                            className="flex items-center justify-between px-6 py-4 hover:bg-muted/50 transition-colors"
                           >
-                            <div className="flex items-center gap-3">
+                            <div className="flex items-center gap-4">
                               <img
                                 src={serviceLogos[service.service] || "/placeholder.svg"}
                                 alt={service.service}
-                                className="h-6 w-6 rounded"
+                                className="h-8 w-8 rounded"
                               />
                               <div>
-                                <div className="font-medium">{service.service}</div>
-                                <div className="text-xs text-muted-foreground capitalize">
+                                <div className="font-medium text-base">{service.service}</div>
+                                <div className="text-sm text-muted-foreground capitalize">
                                   {service.pricingModel} pricing
                                 </div>
                               </div>
                             </div>
                             <div className="text-right">
-                              <div className="font-semibold">${service.total.toLocaleString()}</div>
+                              <div className="font-semibold text-lg">${service.total.toLocaleString()}</div>
                               <div
-                                className={`flex items-center gap-1 text-xs ${serviceTrend === "up" ? "text-red-500" : "text-green-500"}`}
+                                className={`flex items-center justify-end gap-1 text-sm ${serviceTrend === "up" ? "text-red-500" : "text-green-500"}`}
                               >
                                 <ServiceTrendIcon className="h-3 w-3" />
                                 {Math.abs(service.trend).toFixed(1)}%
