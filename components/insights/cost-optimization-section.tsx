@@ -165,7 +165,7 @@ export function CostOptimizationSection() {
 
             {/* Details Dialog */}
             <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-              <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+              <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto [&>button]:h-8 [&>button]:w-8 [&>button>svg]:h-5 [&>button>svg]:w-5">
                 {selectedRecommendation && (
                   <>
                     <DialogHeader>
@@ -231,10 +231,11 @@ export function CostOptimizationSection() {
                       </div>
 
                       {/* Close Button */}
-                      <div className="flex justify-end pt-2">
+                      <div className="pt-2">
                         <Button 
                           variant="outline"
                           onClick={() => setDialogOpen(false)}
+                          className="w-full"
                         >
                           Close
                         </Button>

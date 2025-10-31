@@ -169,13 +169,13 @@ export default function CategoriesPage() {
               }}
             >
               <CardHeader
-                className="cursor-pointer hover:bg-muted/50 transition-colors py-7"
+                className="cursor-pointer hover:bg-muted/50 transition-colors py-7 mr-2"
                 onClick={() => toggleCategory(cat.category)}
               >
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
                     <div>
-                      <CardTitle className="text-2xl">{cat.category}</CardTitle>
+                      <CardTitle className="text-2xl mr-2">{cat.category}</CardTitle>
                       <p className="text-base text-muted-foreground mt-1">
                         {servicesInCategory.length} service{servicesInCategory.length !== 1 ? "s" : ""}
                       </p>
