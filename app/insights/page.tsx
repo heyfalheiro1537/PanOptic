@@ -1,7 +1,8 @@
-import { SpendSummaryHeader } from "@/components/insights/spend-summary-header"
-import { CriticalAlertsSection } from "@/components/insights/critical-alerts-section"
-import { BudgetStatusSimplified } from "@/components/insights/budget-status-simplified"
-import { CostOptimizationSection } from "@/components/insights/cost-optimization-section"
+"use client"
+
+import { AlertsPanel } from "@/components/alerts-panel"
+import { RecommendationsPanel } from "@/components/recommendations-panel"
+import { BudgetCard } from "@/components/budget-card"
 
 export default function InsightsPage() {
     return (

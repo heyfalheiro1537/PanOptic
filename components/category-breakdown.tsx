@@ -10,8 +10,8 @@ export function CategoryBreakdown() {
 
     const chartData = categoryData.map((d) => ({
         category: d.category.replace(" / ", "/\n"),
-        spend: Math.round(d.amountUsd),
-        budget: categoryBudgetsUsd[d.category],
+        Spend: Math.round(d.amountUsd),
+        Budget: categoryBudgetsUsd[d.category],
     }))
 
     return (
@@ -49,9 +49,10 @@ export function CategoryBreakdown() {
                                 outline: "none",
                             }}
                             formatter={(value: number) => `$${value.toLocaleString()}`}
+                            cursor={{ fillOpacity: 0.4 }}
                         />
-                        <Bar dataKey="spend" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
-                        <Bar dataKey="budget" fill="hsl(var(--muted))" radius={[4, 4, 0, 0]} />
+                        <Bar dataKey="Spend" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
+                        <Bar dataKey="Budget" fill="hsl(var(--muted))" radius={[4, 4, 0, 0]} />
                     </BarChart>
                 </ResponsiveContainer>
             </CardContent>

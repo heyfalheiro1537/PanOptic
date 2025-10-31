@@ -12,7 +12,7 @@ export function TrendChart() {
 
     const chartData = last30Days.map((d) => ({
         date: new Date(d.date).toLocaleDateString("en-US", { month: "short", day: "numeric" }),
-        amount: Math.round(d.amountUsd),
+        Amount: Math.round(d.amountUsd),
     }))
 
     return (
@@ -24,7 +24,19 @@ export function TrendChart() {
             <CardContent>
                 <ResponsiveContainer width="100%" height={300}>
                     <AreaChart data={chartData}>
-                        <CartesianGrid strokeDasharray="3 3" className="stroke-border" />
+                        <defs>
+                            <linearGradient id="colorAmount" x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="0%" stopColor="#3b82f6" stopOpacity={0.4}/>
+                                <stop offset="50%" stopColor="#1f2937" stopOpacity={0.15}/>
+                                <stop offset="95%" stopColor="#1f2937" stopOpacity={0.05}/>
+                            </linearGradient>
+                        </defs>
+                        <CartesianGrid 
+                            strokeDasharray="0" 
+                            className="stroke-border" 
+                            horizontal={true}
+                            vertical={false}
+                        />
                         <XAxis dataKey="date" className="text-xs" tick={{ fill: "hsl(var(--muted-foreground))" }} />
                         <YAxis
                             className="text-xs"
@@ -47,13 +59,12 @@ export function TrendChart() {
                         />
                         <Area
                             type="monotone"
-                            dataKey="amount"
+                            dataKey="Amount"
                             stroke="#3b82f6"
                             strokeWidth={2}
-                            fill="#3b82f6"
-                            fillOpacity={0.2}
-                            dot={{ fill: "#3b82f6", stroke: "#3b82f6", strokeWidth: 2 }}
-                            activeDot={{ fill: "#3b82f6", stroke: "#ffffff", strokeWidth: 3, r: 6 }}
+                            fill="url(#colorAmount)"
+                            dot={{ fill: "#3b82f6", strokeWidth: 0, r: 4 }}
+                            activeDot={{ fill: "#3b82f6", stroke: "#ffffff", strokeWidth: 2, r: 6 }}
                         />
                     </AreaChart>
                 </ResponsiveContainer>
