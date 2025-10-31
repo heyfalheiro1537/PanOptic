@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PanOptic - Business Canvas Presentation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #1e293b 0%, #334155 50%, #475569 100%);
+            color: #e2e8f0;
+            overflow: hidden;
+        }
+
+        .presentation {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+        }
+
+        .slide {
+            width: 100%;
+            height: 100%;
+            display: none;
+            padding: 60px 80px 140px 80px;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        .slide.active {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            opacity: 1;
+        }
+        
+        .slide.center {
+            justify-content: center !important;
+        }
+        
+        .slide::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        .slide::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.4);
+            border-radius: 10px;
+        }
+        
+        .slide::-webkit-scrollbar-thumb {
+            background: rgba(148, 163, 184, 0.4);
+            border-radius: 10px;
+        }
+        
+        .slide::-webkit-scrollbar-thumb:hover {
+            background: rgba(148, 163, 184, 0.6);
+        }
+
+        .slide-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            font-weight: 800;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        h2 {
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            color: #7dd3fc;
+        }
+
+        p, li {
+            font-size: 1.4rem;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .subtitle {
+            font-size: 1.8rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .card {
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 2rem;
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        }
+
+        .card h3 {
+            margin-bottom: 1rem;
+        }
+
+        .card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .card li {
+            padding-left: 1.5rem;
+            position: relative;
+            margin-bottom: 0.8rem;
+            font-size: 1.2rem;
+        }
+
+        .card li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #7dd3fc;
+            font-weight: bold;
+        }
+
+        .highlight {
+            background: rgba(125, 211, 252, 0.2);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-weight: 600;
+            color: #bae6fd;
+        }
+
+        .architecture-diagram {
+            background: rgba(15, 23, 42, 0.4);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-top: 2rem;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .architecture-box {
+            background: rgba(51, 65, 85, 0.6);
+            padding: 1.5rem 2rem;
+            border-radius: 12px;
+            text-align: center;
+            min-width: 180px;
+            border: 2px solid rgba(148, 163, 184, 0.3);
+        }
+
+        .architecture-box h4 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: #7dd3fc;
+        }
+
+        .architecture-box p {
+            font-size: 1rem;
+            margin: 0;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 4rem;
+            font-weight: 800;
+            color: #7dd3fc;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            z-index: 1000;
+            background: linear-gradient(to top, rgba(15, 23, 42, 0.95) 0%, rgba(30, 41, 59, 0.8) 50%, transparent 100%);
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-btn {
+            background: rgba(51, 65, 85, 0.8);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(148, 163, 184, 0.4);
+            color: #e2e8f0;
+            padding: 14px 28px;
+            font-size: 1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-btn:hover {
+            background: rgba(71, 85, 105, 0.9);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+            border-color: rgba(125, 211, 252, 0.5);
+        }
+
+        .slide-number {
+            position: fixed;
+            top: 30px;
+            right: 40px;
+            font-size: 1.2rem;
+            opacity: 0.7;
+        }
+
+        .logo {
+            position: fixed;
+            top: 30px;
+            left: 40px;
+            font-size: 1.5rem;
+            font-weight: 800;
+        }
+
+        ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        ul li {
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        ul li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #6ee7b7;
+            font-weight: bold;
+        }
+
+        .problem-list li:before {
+            content: "⚠";
+            color: #fca5a5;
+        }
+
+        .ai-list li:before {
+            content: "->";
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .slide.active .slide-content > * {
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+
+        .slide.active .slide-content > *:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+
+        .slide.active .slide-content > *:nth-child(3) {
+            animation-delay: 0.2s;
+        }
+
+        .slide.active .slide-content > *:nth-child(4) {
+            animation-delay: 0.3s;
+        }
+
+        .scroll-indicator {
+            position: fixed;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.9rem;
+            opacity: 0.6;
+            animation: bounce 2s infinite;
+            pointer-events: none;
+            z-index: 999;
+        }
+
+        .scroll-indicator.hidden {
+            display: none;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateX(-50%) translateY(0);
+            }
+            40% {
+                transform: translateX(-50%) translateY(-10px);
+            }
+            60% {
+                transform: translateX(-50%) translateY(-5px);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .slide {
+                padding: 40px 30px 120px 30px;
+            }
+            
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            h2 {
+                font-size: 2rem;
+            }
+            
+            h3 {
+                font-size: 1.5rem;
+            }
+            
+            p, li {
+                font-size: 1.1rem;
+            }
+            
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .logo {
+                font-size: 1.2rem;
+                left: 20px;
+                top: 20px;
+            }
+            
+            .slide-number {
+                font-size: 1rem;
+                right: 20px;
+                top: 20px;
+            }
+            
+            .nav-btn {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+            
+            .architecture-diagram {
+                flex-direction: column;
+            }
+            
+            .stats {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+            
+            .stat-number {
+                font-size: 3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="logo">PanOptic</div>
+    <div class="slide-number">
+        <span id="current-slide">1</span> / <span id="total-slides">8</span>
+    </div>
+
+    <div class="presentation">
+        <!-- Slide 1: Title -->
+        <div class="slide active center">
+            <div class="slide-content">
+                <h1>PanOptic</h1>
+                <p class="subtitle">Smart Tech Spend Management for Non-Technical Founders</p>
+                <p style="font-size: 1.2rem; opacity: 0.8; margin-top: 3rem;">
+                    Simplifying cloud costs, AI expenses, and SaaS management<br>
+                    for founders who want to focus on building, not budgeting
+                </p>
+            </div>
+        </div>
+
+        <!-- Slide 2: The Problem -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>The Problem</h2>
+                <p style="font-size: 1.6rem; margin-bottom: 2rem;">
+                    <span class="highlight">Non-technical founders</span> struggle to manage and optimize their tech spending
+                </p>
+                
+                <div class="grid">
+                    <div class="card">
+                        <h3>Pain Points</h3>
+                        <ul class="problem-list">
+                            <li>Tech bills scattered across 15+ services</li>
+                            <li>No visibility into AI token costs</li>
+                            <li>Surprise charges from AWS, Vercel, OpenAI</li>
+                            <li>Can't predict monthly burn rate</li>
+                            <li>Don't know which services to optimize</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="card">
+                        <h3>The Impact</h3>
+                        <ul class="problem-list">
+                            <li>20-40% of tech budget wasted</li>
+                            <li>Hours spent manually tracking expenses</li>
+                            <li>Budget overruns threatening runway</li>
+                            <li>No data-driven optimization</li>
+                            <li>Technical debt in cost management</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: The Solution -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>Our Solution</h2>
+                <p style="font-size: 1.4rem; margin-bottom: 2rem;">
+                    <span class="highlight">PanOptic</span> is an AI-powered financial dashboard that automatically tracks, 
+                    analyzes, and optimizes your tech infrastructure spending
+                </p>
+                
+                <div class="grid">
+                    <div class="card">
+                        <h3>Core Features</h3>
+                        <ul>
+                            <li>Unified expense dashboard</li>
+                            <li>Automatic cost tracking via SDK</li>
+                            <li>AI-powered recommendations</li>
+                            <li>Real-time alerts & anomaly detection</li>
+                            <li>Budget forecasting</li>
+                            <li>Category breakdowns (AI, Infrastructure, SaaS)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="card">
+                        <h3>Key Benefits</h3>
+                        <ul>
+                            <li>Save 20-30% on tech costs</li>
+                            <li>5-minute setup with SDKs</li>
+                            <li>No technical knowledge required</li>
+                            <li>Prevent budget overruns</li>
+                            <li>Data-driven decisions</li>
+                            <li>Extend runway by months</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Architecture Overview -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>Architecture Overview</h2>
+                <p style="font-size: 1.3rem; margin-bottom: 2rem;">
+                    Modern, scalable architecture built for founders
+                </p>
+                
+                <div class="architecture-diagram">
+                    <div class="architecture-box">
+                        <h4>Frontend</h4>
+                        <p>Next.js 16</p>
+                        <p>React 19</p>
+                        <p>TypeScript</p>
+                        <p>Tailwind CSS</p>
+                    </div>
+                    
+                    <div class="architecture-box">
+                        <h4>SDKs</h4>
+                        <p>Node.js</p>
+                        <p>Python</p>
+                        <p>Auto-tracking</p>
+                        <p>Easy integration</p>
+                    </div>
+                    
+                    <div class="architecture-box">
+                        <h4>AI Engine</h4>
+                        <p>OpenAI GPT</p>
+                        <p>Pattern analysis</p>
+                        <p>Recommendations</p>
+                        <p>Anomaly detection</p>
+                    </div>
+                    
+                    <div class="architecture-box">
+                        <h4>Data Layer</h4>
+                        <p>CSV Import</p>
+                        <p>API Integration</p>
+                        <p>Real-time tracking</p>
+                        <p>Historical analysis</p>
+                    </div>
+                </div>
+                
+                <div class="card" style="margin-top: 2rem;">
+                    <h3>Technical Highlights</h3>
+                    <ul>
+                        <li>React Server Components for optimal performance</li>
+                        <li>Recharts for beautiful data visualizations</li>
+                        <li>Radix UI for accessible components</li>
+                        <li>Vercel deployment for instant scalability</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: How AI Powers PanOptic -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>How AI Powers PanOptic</h2>
+                <p style="font-size: 1.4rem; margin-bottom: 2rem;">
+                    AI is the brain that turns data into <span class="highlight">actionable savings</span>
+                </p>
+                
+                <div class="grid">
+                    <div class="card">
+                        <h3>🤖 AI Capabilities</h3>
+                        <ul class="ai-list">
+                            <li>Analyzes spending patterns across all services</li>
+                            <li>Detects anomalies and unusual spikes</li>
+                            <li>Generates personalized cost optimization strategies</li>
+                            <li>Predicts future spending based on trends</li>
+                            <li>Identifies underutilized resources</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="card">
+                        <h3>💡 Real Recommendations</h3>
+                        <ul>
+                            <li>"Switch to Enterprise AI Plan - Save $850/mo"</li>
+                            <li>"Rightsize EC2 Instances - Save $225/mo"</li>
+                            <li>"Remove 5 unused seats - Save $150/mo"</li>
+                            <li>"Use reserved DB capacity - Save $240/mo"</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card" style="margin-top: 2rem;">
+                    <h3>AI Integration Example</h3>
+                    <p style="font-size: 1.1rem;">
+                        Our SDK automatically wraps your OpenAI calls to track token usage and costs in real-time. 
+                        The AI then analyzes your usage patterns to recommend the optimal pricing tier, 
+                        potentially saving you thousands per month.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Target Market & Traction -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>Target Market</h2>
+                <p style="font-size: 1.4rem; margin-bottom: 2rem;">
+                    <span class="highlight">Non-technical founders</span> at early to growth-stage startups
+                </p>
+                
+                <div class="stats">
+                    <div class="stat-item">
+                        <span class="stat-number">500K+</span>
+                        <span class="stat-label">Startups Founded Annually</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">$150B</span>
+                        <span class="stat-label">Cloud Market Size</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">65%</span>
+                        <span class="stat-label">Have Non-Tech Founders</span>
+                    </div>
+                </div>
+                
+                <div class="grid" style="margin-top: 3rem;">
+                    <div class="card">
+                        <h3>Ideal Customer Profile</h3>
+                        <ul>
+                            <li>Pre-seed to Series A startups</li>
+                            <li>$5k - $100k monthly tech spend</li>
+                            <li>Non-technical founding team</li>
+                            <li>Using AI APIs (GPT, Claude, etc.)</li>
+                            <li>Cloud infrastructure (AWS, Vercel)</li>
+                            <li>10+ SaaS subscriptions</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="card">
+                        <h3>Market Opportunity</h3>
+                        <ul>
+                            <li><strong>TAM:</strong> $12B (FinOps market)</li>
+                            <li><strong>SAM:</strong> $2B (startup segment)</li>
+                            <li><strong>SOM:</strong> $200M (early adopters)</li>
+                            <li>Growing 45% YoY with AI boom</li>
+                            <li>Competitors focus on enterprises</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Call to Action -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>Why PanOptic Wins</h2>
+                
+                <div class="grid">
+                    <div class="card">
+                        <h3>✨ For Founders</h3>
+                        <ul>
+                            <li>Extend runway by 3-6 months</li>
+                            <li>Spend 5 minutes, not 5 hours on finance</li>
+                            <li>Sleep better knowing costs are optimized</li>
+                            <li>Make data-driven infrastructure decisions</li>
+                            <li>Impress investors with cost discipline</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="card">
+                        <h3>🎯 Competitive Advantage</h3>
+                        <ul>
+                            <li>Only solution built for non-technical founders</li>
+                            <li>AI-first approach to optimization</li>
+                            <li>Covers ALL tech expenses, not just cloud</li>
+                            <li>SDK auto-tracking vs manual entry</li>
+                            <li>Beautiful UX, not enterprise complexity</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card" style="margin-top: 2rem; background: rgba(125, 211, 252, 0.15); border: 2px solid #7dd3fc;">
+                    <h3 style="color: #7dd3fc; font-size: 2rem;">The Vision</h3>
+                    <p style="font-size: 1.4rem; margin-bottom: 0;">
+                        Become the <strong>default financial operating system</strong> for every non-technical founder, 
+                        saving the startup ecosystem <strong>billions in wasted tech spend</strong> and helping thousands 
+                        of companies reach profitability faster.
+                    </p>
+                </div>
+                
+                <div style="text-align: center; margin-top: 3rem;">
+                    <p style="font-size: 2rem; font-weight: 700;">
+                        🚀 Let's build smarter, together.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: QR Code -->
+        <div class="slide center">
+            <div class="slide-content">
+                <div style="text-align: center;">
+                    <h2 style="margin-bottom: 3rem;">Visit Our Platform</h2>
+                    <div style="display: inline-block; background: rgba(30, 41, 59, 0.6); padding: 3rem; border-radius: 24px; box-shadow: 0 8px 32px rgba(0,0,0,0.4);">
+                        <img src="site_qrcode.png" alt="Visit PanOptic" style="width: 300px; height: 300px; border-radius: 16px; display: block;" />
+                        <p style="font-size: 1.4rem; margin-top: 2rem; opacity: 0.9;">Scan to explore PanOptic</p>
+                        <p style="font-size: 1.1rem; margin-top: 0.5rem; opacity: 0.7;">Smart Tech Spend Management</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="scroll-indicator" id="scroll-indicator">
+        ↓ Scroll for more ↓
+    </div>
+
+    <div class="navigation">
+        <button class="nav-btn" id="prev-btn">← Previous</button>
+        <button class="nav-btn" id="next-btn">Next →</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        const currentSlideEl = document.getElementById('current-slide');
+        const totalSlidesEl = document.getElementById('total-slides');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const scrollIndicator = document.getElementById('scroll-indicator');
+
+        totalSlidesEl.textContent = totalSlides;
+
+        function checkScrollIndicator() {
+            const activeSlide = slides[currentSlide];
+            const hasOverflow = activeSlide.scrollHeight > activeSlide.clientHeight;
+            const isAtBottom = activeSlide.scrollTop + activeSlide.clientHeight >= activeSlide.scrollHeight - 10;
+            
+            if (hasOverflow && !isAtBottom) {
+                scrollIndicator.classList.remove('hidden');
+            } else {
+                scrollIndicator.classList.add('hidden');
+            }
+        }
+
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            slides[currentSlide].scrollTop = 0;
+            currentSlide = (n + totalSlides) % totalSlides;
+            slides[currentSlide].classList.add('active');
+            currentSlideEl.textContent = currentSlide + 1;
+            
+            setTimeout(checkScrollIndicator, 100);
+        }
+
+        function nextSlide() {
+            showSlide(currentSlide + 1);
+        }
+
+        function prevSlide() {
+            showSlide(currentSlide - 1);
+        }
+
+        prevBtn.addEventListener('click', prevSlide);
+        nextBtn.addEventListener('click', nextSlide);
+
+        // Add scroll listeners to all slides
+        slides.forEach(slide => {
+            slide.addEventListener('scroll', () => {
+                if (slide.classList.contains('active')) {
+                    checkScrollIndicator();
+                }
+            });
+        });
+
+        // Check scroll indicator on window resize
+        window.addEventListener('resize', () => {
+            checkScrollIndicator();
+        });
+
+        // Initial check
+        setTimeout(checkScrollIndicator, 100);
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                prevSlide();
+            }
+        });
+
+        // Touch/swipe support
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        document.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        document.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            if (touchEndX < touchStartX - 50) nextSlide();
+            if (touchEndX > touchStartX + 50) prevSlide();
+        }
+    </script>
+</body>
+</html>
