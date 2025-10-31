@@ -7,16 +7,16 @@ import Image from "next/image"
 
 // Map service names to their logo icons
 const serviceIcons: Record<string, string> = {
-    "OpenAI GPT-4": "https://cdn.simpleicons.org/openai/412991",
-    "Anthropic Claude": "https://cdn.simpleicons.org/anthropic/CC9B7A",
-    "AWS EC2": "https://cdn.simpleicons.org/amazonaws/FF9900",
-    "AWS S3": "https://cdn.simpleicons.org/amazonaws/FF9900",
-    "Datadog": "https://cdn.simpleicons.org/datadog/632CA6",
-    "GitHub": "https://cdn.simpleicons.org/github/181717",
-    "Stripe": "https://cdn.simpleicons.org/stripe/008CDD",
-    "Vercel": "https://cdn.simpleicons.org/vercel/000000",
-    "MongoDB Atlas": "https://cdn.simpleicons.org/mongodb/47A248",
-    "Cloudflare": "https://cdn.simpleicons.org/cloudflare/F38020",
+    "AWS EC2": "https://img.logo.dev/aws.com?token=pk_dRI6rSooQUyHy9Hbe0Pciw&format=png",
+    "AWS S3": "https://img.logo.dev/aws.com?token=pk_dRI6rSooQUyHy9Hbe0Pciw&format=png",
+    "OpenAI GPT-4": "https://img.logo.dev/chatgpt.com?token=pk_dRI6rSooQUyHy9Hbe0Pciw&format=png",
+    "Anthropic Claude": "https://img.logo.dev/anthropic.com?token=pk_dRI6rSooQUyHy9Hbe0Pciw&format=png",
+    Vercel: "https://img.logo.dev/v0.dev?token=pk_dRI6rSooQUyHy9Hbe0Pciw&format=png",
+    Datadog: "https://img.logo.dev/datadoghq.com?token=pk_dRI6rSooQUyHy9Hbe0Pciw&format=png",
+    GitHub: "https://img.logo.dev/github.com?token=pk_dRI6rSooQUyHy9Hbe0Pciw&format=png",
+    Stripe: "https://img.logo.dev/stripe.com?token=pk_dRI6rSooQUyHy9Hbe0Pciw&format=png",
+    "MongoDB Atlas": "https://img.logo.dev/mongodb.com?token=pk_dRI6rSooQUyHy9Hbe0Pciw&format=png",
+    Cloudflare: "https://img.logo.dev/cloudflare.com?token=pk_dRI6rSooQUyHy9Hbe0Pciw&format=png",
 }
 
 export function TopServicesTable() {
