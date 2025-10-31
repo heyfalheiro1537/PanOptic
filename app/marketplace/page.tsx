@@ -22,7 +22,7 @@ const integrations: Integration[] = [
     name: "OpenAI",
     description: "Track GPT-4, GPT-3.5, and embeddings usage automatically",
     category: "AI Tokens / APIs",
-    logo: "https://placeholder.svg?height=48&width=48&query=OpenAI+logo",
+    logo: "https://img.logo.dev/chatgpt.com?token=pk_dRI6rSooQUyHy9Hbe0Pciw&format=png",
     installed: true,
     popular: true,
   },
@@ -31,7 +31,7 @@ const integrations: Integration[] = [
     name: "Anthropic",
     description: "Monitor Claude model usage and costs",
     category: "AI Tokens / APIs",
-    logo: "https://placeholder.svg?height=48&width=48&query=Anthropic+logo",
+    logo: "https://img.logo.dev/anthropic.com?token=pk_dRI6rSooQUyHy9Hbe0Pciw&format=png",
     installed: true,
     popular: true,
   },
@@ -40,7 +40,7 @@ const integrations: Integration[] = [
     name: "AWS",
     description: "Connect to AWS Cost Explorer for EC2, S3, and more",
     category: "Infrastructure",
-    logo: "https://placeholder.svg?height=48&width=48&query=AWS+logo",
+    logo: "https://img.logo.dev/aws.com?token=pk_dRI6rSooQUyHy9Hbe0Pciw&format=png",
     installed: true,
   },
   {
@@ -48,7 +48,7 @@ const integrations: Integration[] = [
     name: "Vercel",
     description: "Track hosting and bandwidth costs",
     category: "Hosting & DevOps",
-    logo: "https://placeholder.svg?height=48&width=48&query=Vercel+logo",
+    logo: "https://img.logo.dev/v0.dev?token=pk_dRI6rSooQUyHy9Hbe0Pciw&format=png",
     installed: true,
   },
   {
@@ -56,7 +56,7 @@ const integrations: Integration[] = [
     name: "Stripe",
     description: "Monitor payment processing fees",
     category: "Third-Party Tools",
-    logo: "https://placeholder.svg?height=48&width=48&query=Stripe+logo",
+    logo: "https://img.logo.dev/stripe.com?token=pk_dRI6rSooQUyHy9Hbe0Pciw&format=png",
     installed: true,
   },
   {
@@ -64,7 +64,7 @@ const integrations: Integration[] = [
     name: "Cohere",
     description: "Track Cohere AI model usage and embeddings",
     category: "AI Tokens / APIs",
-    logo: "https://placeholder.svg?height=48&width=48&query=Cohere+logo",
+    logo: "https://img.logo.dev/cohere.com?token=pk_dRI6rSooQUyHy9Hbe0Pciw&format=png",
     installed: false,
     popular: true,
   },
@@ -73,7 +73,7 @@ const integrations: Integration[] = [
     name: "Replicate",
     description: "Monitor AI model inference costs",
     category: "AI Tokens / APIs",
-    logo: "https://placeholder.svg?height=48&width=48&query=Replicate+logo",
+    logo: "https://img.logo.dev/replicate.com?token=pk_dRI6rSooQUyHy9Hbe0Pciw&format=png",
     installed: false,
   },
   {
@@ -81,7 +81,7 @@ const integrations: Integration[] = [
     name: "Google Cloud",
     description: "Connect to GCP billing for compute and storage",
     category: "Infrastructure",
-    logo: "https://placeholder.svg?height=48&width=48&query=Google+Cloud+logo",
+    logo: "https://img.logo.dev/google.com?token=pk_dRI6rSooQUyHy9Hbe0Pciw&format=png",
     installed: false,
   },
   {
@@ -89,7 +89,7 @@ const integrations: Integration[] = [
     name: "Microsoft Azure",
     description: "Track Azure resource costs",
     category: "Infrastructure",
-    logo: "https://placeholder.svg?height=48&width=48&query=Azure+logo",
+    logo: "https://img.logo.dev/microsoft.com?token=pk_dRI6rSooQUyHy9Hbe0Pciw&format=png",
     installed: false,
   },
   {
@@ -97,7 +97,7 @@ const integrations: Integration[] = [
     name: "Datadog",
     description: "Monitor observability and APM costs",
     category: "Third-Party Tools",
-    logo: "https://placeholder.svg?height=48&width=48&query=Datadog+logo",
+    logo: "https://img.logo.dev/datadoghq.com?token=pk_dRI6rSooQUyHy9Hbe0Pciw&format=png",
     installed: false,
   },
   {
@@ -105,7 +105,7 @@ const integrations: Integration[] = [
     name: "GitHub",
     description: "Track Actions, Copilot, and seat costs",
     category: "Third-Party Tools",
-    logo: "https://placeholder.svg?height=48&width=48&query=GitHub+logo",
+    logo: "https://img.logo.dev/github.com?token=pk_dRI6rSooQUyHy9Hbe0Pciw&format=png",
     installed: false,
   },
   {
@@ -113,7 +113,7 @@ const integrations: Integration[] = [
     name: "Cloudflare",
     description: "Monitor CDN and Workers usage",
     category: "Hosting & DevOps",
-    logo: "https://placeholder.svg?height=48&width=48&query=Cloudflare+logo",
+    logo: "https://img.logo.dev/cloudfare.com?token=pk_dRI6rSooQUyHy9Hbe0Pciw&format=png",
     installed: false,
   },
 ]

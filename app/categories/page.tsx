@@ -14,16 +14,16 @@ const categoryIcons: Record<Category, string> = {
 }
 
 const serviceLogos: Record<string, string> = {
-  "AWS EC2": "https://placeholder.svg?height=24&width=24&query=AWS+logo",
-  "AWS S3": "https://placeholder.svg?height=24&width=24&query=AWS+S3+logo",
-  "OpenAI GPT-4": "https://placeholder.svg?height=24&width=24&query=OpenAI+logo",
-  "Anthropic Claude": "https://placeholder.svg?height=24&width=24&query=Anthropic+logo",
-  Vercel: "https://placeholder.svg?height=24&width=24&query=Vercel+logo",
-  Datadog: "https://placeholder.svg?height=24&width=24&query=Datadog+logo",
-  GitHub: "https://placeholder.svg?height=24&width=24&query=GitHub+logo",
-  Stripe: "https://placeholder.svg?height=24&width=24&query=Stripe+logo",
-  "MongoDB Atlas": "https://placeholder.svg?height=24&width=24&query=MongoDB+logo",
-  Cloudflare: "https://placeholder.svg?height=24&width=24&query=Cloudflare+logo",
+  "AWS EC2": "https://img.logo.dev/aws.com?token=pk_dRI6rSooQUyHy9Hbe0Pciw&format=png",
+  "AWS S3": "https://img.logo.dev/aws.com?token=pk_dRI6rSooQUyHy9Hbe0Pciw&format=png",
+  "OpenAI GPT-4": "https://img.logo.dev/chatgpt.com?token=pk_dRI6rSooQUyHy9Hbe0Pciw&format=png",
+  "Anthropic Claude": "https://img.logo.dev/anthropic.com?token=pk_dRI6rSooQUyHy9Hbe0Pciw&format=png",
+  Vercel: "https://img.logo.dev/v0.dev?token=pk_dRI6rSooQUyHy9Hbe0Pciw&format=png",
+  Datadog: "https://img.logo.dev/datadoghq.com?token=pk_dRI6rSooQUyHy9Hbe0Pciw&format=png",
+  GitHub: "https://img.logo.dev/github.com?token=pk_dRI6rSooQUyHy9Hbe0Pciw&format=png",
+  Stripe: "https://img.logo.dev/stripe.com?token=pk_dRI6rSooQUyHy9Hbe0Pciw&format=png",
+  "MongoDB Atlas": "https://img.logo.dev/mongodb.com?token=pk_dRI6rSooQUyHy9Hbe0Pciw&format=png",
+  Cloudflare: "https://img.logo.dev/cloudflare.com?token=pk_dRI6rSooQUyHy9Hbe0Pciw&format=png",
 }
 
 function calculateTrend(current: number, previous: number): number {

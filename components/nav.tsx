@@ -8,7 +8,6 @@ import { LayoutDashboard, Lightbulb, Database, FolderTree, Sparkles, BookOpen, S
 const navItems = [
   { href: "/", label: "Dashboard", icon: LayoutDashboard },
   { href: "/categories", label: "Categories", icon: FolderTree },
-  { href: "/ai-tokens", label: "AI Tokens", icon: Sparkles },
   { href: "/insights", label: "Insights", icon: Lightbulb },
   { href: "/data", label: "Data", icon: Database },
   { href: "/marketplace", label: "Marketplace", icon: Store },
