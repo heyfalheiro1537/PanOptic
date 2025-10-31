@@ -230,18 +230,8 @@ export function CostOptimizationSection() {
                         </p>
                       </div>
 
-                      {/* Action Button */}
-                      <div className="flex gap-3 pt-2">
-                        <Button 
-                          className="flex-1"
-                          onClick={() => {
-                            setDialogOpen(false)
-                            // In a real app, this would navigate or trigger an action
-                          }}
-                        >
-                          {selectedRecommendation.action}
-                          <ArrowRight className="ml-2 h-4 w-4" />
-                        </Button>
+                      {/* Close Button */}
+                      <div className="flex justify-end pt-2">
                         <Button 
                           variant="outline"
                           onClick={() => setDialogOpen(false)}
