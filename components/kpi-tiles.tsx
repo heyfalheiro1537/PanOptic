@@ -18,6 +18,8 @@ export function KpiTiles() {
   return (
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
       <Card>
+        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-0">
+          <CardTitle className="text-base font-medium">MTD Spend</CardTitle>
         <CardHeader className="flex flex-row items-center justify-between space-y-0">
           <CardTitle className="text-sm font-medium">MTD Spend</CardTitle>
           <DollarSign className="h-4 w-4 text-muted-foreground" />
@@ -29,6 +31,8 @@ export function KpiTiles() {
       </Card>
 
       <Card>
+        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-0">
+          <CardTitle className="text-base font-medium">Month Projection</CardTitle>
         <CardHeader className="flex flex-row items-center justify-between space-y-0">
           <CardTitle className="text-sm font-medium">Month Projection</CardTitle>
           <TrendingUp className="h-4 w-4 text-muted-foreground" />
@@ -46,6 +50,8 @@ export function KpiTiles() {
       </Card>
 
       <Card>
+        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-0">
+          <CardTitle className="text-base font-medium">90-Day Spend</CardTitle>
         <CardHeader className="flex flex-row items-center justify-between space-y-0">
           <CardTitle className="text-sm font-medium">90-Day Spend</CardTitle>
           <TrendingDown className="h-4 w-4 text-muted-foreground" />
@@ -57,6 +63,8 @@ export function KpiTiles() {
       </Card>
 
       <Card>
+        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-0">
+          <CardTitle className="text-base font-medium">Active Alerts</CardTitle>
         <CardHeader className="flex flex-row items-center justify-between space-y-0">
           <CardTitle className="text-sm font-medium">Active Alerts</CardTitle>
           <AlertTriangle className="h-4 w-4 text-muted-foreground" />
